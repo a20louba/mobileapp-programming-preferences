@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.os.Bundle;
 
@@ -24,7 +25,9 @@ public class SecondActivity extends AppCompatActivity {
             public void onClick(View view) {
                 SharedPreferences myPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = myPreferences.edit();
-                editor.putString("name", "Louise");
+                EditText editText = findViewById(R.id.name);
+                String name = editText.getText().toString();
+                editor.putString("name", name);
                 editor.apply();
                 finish();
             }

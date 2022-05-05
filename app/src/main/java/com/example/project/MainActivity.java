@@ -14,24 +14,11 @@ import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView textViewname;
-    private SharedPreferences myPreferenceRef;
-    private SharedPreferences.Editor myPreferenceEditor;
-    EditText editText;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        myPreferenceRef = getPreferences(MODE_PRIVATE);
-        myPreferenceEditor = myPreferenceRef.edit();
-        textViewname = findViewById(R.id.text_name);
-        SharedPreferences myPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        String name = myPreferences.getString("name", "hittade inget namn");
-        textViewname.setText(name);
+        setContentView(R.layout.activity_main);
 
     }
 
@@ -39,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-
-
-        setContentView(R.layout.activity_main);
+        TextView textViewName = this.findViewById(R.id.text_name);
+        SharedPreferences myPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        String name = myPreferences.getString("name", "hittade inget namn");
+        textViewName.setText(name);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button button = findViewById(R.id.start_second_activity);
@@ -56,14 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-        TextView prefTextRef=new TextView(this);
-        prefTextRef=(TextView)findViewById(R.id.name);
-        prefTextRef.setText(myPreferenceRef.getString("MyAppPreferenceString", "No preference found."));
-
-
-
 
 
     }
