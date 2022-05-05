@@ -3,32 +3,33 @@
 
 **Skriv din rapport här!**
 
-_Du kan ta bort all text som finns sedan tidigare_.
+skapat Shared preferences, skapat en second activity lagt till button med findView.. och setOnClickL..
+för att knappen ska navigera mellan aktiviteterna. Med SharedPreferences, getSharedPre.. och String name, tillsammans med 
+edittext har jag gjor så att den text jag implementerar i second aktivity ska synas i main när jag closar. 
 
-## Följande grundsyn gäller dugga-svar:
-
-- Ett kortfattat svar är att föredra. Svar som är längre än en sida text (skärmdumpar och programkod exkluderat) är onödigt långt.
-- Svaret skall ha minst en snutt programkod.
-- Svaret skall inkludera en kort övergripande förklarande text som redogör för vad respektive snutt programkod gör eller som svarar på annan teorifråga.
-- Svaret skall ha minst en skärmdump. Skärmdumpar skall illustrera exekvering av relevant programkod. Eventuell text i skärmdumpar måste vara läsbar.
-- I de fall detta efterfrågas, dela upp delar av ditt svar i för- och nackdelar. Dina för- respektive nackdelar skall vara i form av punktlistor med kortare stycken (3-4 meningar).
-
-Programkod ska se ut som exemplet nedan. Koden måste vara korrekt indenterad då den blir lättare att läsa vilket gör det lättare att hitta syntaktiska fel.
 
 ```
-function errorCallback(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            // Geolocation API stöds inte, gör något
-            break;
-        case error.POSITION_UNAVAILABLE:
-            // Misslyckat positionsanrop, gör något
-            break;
-        case error.UNKNOWN_ERROR:
-            // Okänt fel, gör något
-            break;
-    }
-}
+        SharedPreferences myPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        String name = myPreferences.getString("name", "hittade inget namn");
+        textViewName.setText(name);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Button button = findViewById(R.id.start_second_activity);
+        button.setOnClickListener(new View.OnClickListener() {
+```
+Denna kod som applicerar texten ligger i second activity. 
+```
+       @Override
+            public void onClick(View view) {
+                SharedPreferences myPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = myPreferences.edit();
+                EditText editText = findViewById(R.id.name);
+                String name = editText.getText().toString();
+                editor.putString("name", name);
+                editor.apply();
+                finish();
+            }
+        });
 ```
 
 Bilder läggs i samma mapp som markdown-filen.
