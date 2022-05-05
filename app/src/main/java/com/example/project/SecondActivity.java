@@ -1,6 +1,9 @@
 package com.example.project;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,17 +17,15 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         TextView textView = findViewById(R.id.name);
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String name = extras.getString("name");
-            int number = extras.getInt("number");
-            textView.setText(name + "," + number);
-        }
         Button close = findViewById(R.id.close_second_activity);
         close.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+                SharedPreferences myPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = myPreferences.edit();
+                editor.putString("name", "Louise");
+                editor.apply();
                 finish();
             }
         });
